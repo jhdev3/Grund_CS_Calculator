@@ -72,6 +72,6 @@ Var = typ variabel skapa en local variabel utan att ge dem en explicit typ, Stri
             Console.WriteLine("Hello World!\t{1} och {2} är totalt {0} ", tal1 + tal2, tal1, tal2 );
 
 
+        $ dotnet new gitignore <-- Grymt nice :) 
 
- 
  */ 
