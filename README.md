@@ -1,7 +1,7 @@
 # OOP_Calc
 main:
   Front_end:
-  Checking_inputs to calc_class
+  Checking_inputs for the calc class
   
   
 Calc_class:
