@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\eneby\\OneDrive\\Bilder\\TUC\\Programmering Grund\\Calculator\\Calculator\\Calculator.csproj": {}
+    "C:\\Users\\eneby\\OneDrive\\Bilder\\TUC\\Programmering Grund\\Calculator\\Grund_CS_Calculator\\Calculator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\eneby\\OneDrive\\Bilder\\TUC\\Programmering Grund\\Calculator\\Calculator\\Calculator.csproj": {
+    "C:\\Users\\eneby\\OneDrive\\Bilder\\TUC\\Programmering Grund\\Calculator\\Grund_CS_Calculator\\Calculator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\eneby\\OneDrive\\Bilder\\TUC\\Programmering Grund\\Calculator\\Calculator\\Calculator.csproj",
+        "projectUniqueName": "C:\\Users\\eneby\\OneDrive\\Bilder\\TUC\\Programmering Grund\\Calculator\\Grund_CS_Calculator\\Calculator.csproj",
         "projectName": "Calculator",
-        "projectPath": "C:\\Users\\eneby\\OneDrive\\Bilder\\TUC\\Programmering Grund\\Calculator\\Calculator\\Calculator.csproj",
+        "projectPath": "C:\\Users\\eneby\\OneDrive\\Bilder\\TUC\\Programmering Grund\\Calculator\\Grund_CS_Calculator\\Calculator.csproj",
         "packagesPath": "C:\\Users\\eneby\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\eneby\\OneDrive\\Bilder\\TUC\\Programmering Grund\\Calculator\\Calculator\\obj\\",
+        "outputPath": "C:\\Users\\eneby\\OneDrive\\Bilder\\TUC\\Programmering Grund\\Calculator\\Grund_CS_Calculator\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
