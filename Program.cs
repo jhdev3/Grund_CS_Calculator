@@ -30,8 +30,8 @@ namespace Calculator
         {
             float tal1=0, tal2=0, resultat; //Lägga som private/public i klass kanske för OOP standard = 0
             string read;
-            string calc_operator = "+";
-            List<string>  history = new List<string>(); //Skapar en array/lista/vector
+            List<Calc>  history = new List<Calc>(); //Skapar en array/lista/vector
+            Calc do_the_math = new Calc();
 
             Console.WriteLine("En fantatiskt miniräknare, där om du vill AVSLUTA matar in MARKUS \n Mata in ett tal:");
 
@@ -44,60 +44,34 @@ namespace Calculator
                     break;
                 }
                 tal1 = check_input_float(read);
+                do_the_math.Num1 = tal1;
 
                 read = Console.ReadLine();
                 if (read == "MARCUS")
                 {
                     break;
                 }
-                calc_operator = read;
+                do_the_math.Calc_operator = read;
+
                 read = Console.ReadLine();
                 if (read =="MARCUS") {
                     break;
                 }
                 tal2 = check_input_float(read);
+                do_the_math.Num2 = tal2;
 
-                switch (calc_operator)
-                {
-                    case "+":
-                        resultat = tal1 + tal2;
-                        Console.WriteLine("{0} + {1} = {2} ", tal1, tal2, resultat);
-                        history.Add(tal1+ calc_operator + tal2 + " = " + resultat);
-                        break;
-                    case "-":
-                        resultat = tal1 - tal2;
-                        Console.WriteLine("{0} - {1} = {2} ", tal1, tal2, resultat);
-                        history.Add(tal1 + calc_operator + tal2 + " = " + resultat);
-                        break;
-                    case "*":
-                        resultat = tal1 * tal2;
-                        Console.WriteLine("{0} * {1} = {2} ", tal1, tal2, resultat);
-                        history.Add(tal1 + calc_operator + tal2 + " = " + resultat);
-                        break;
-                    case "/":
-                        if (tal2 != 0)
-                        {
-                            resultat = tal1 / tal2;
-                            Console.WriteLine("{0} / {1} = {2} ", tal1, tal2, resultat);
-                            history.Add(tal1 + calc_operator + tal2 + " = " + resultat);
-                        }
-                        else
-                        {
-                            Console.WriteLine("{0} / {1} = To Infinity and beyond xD ", tal1, tal2);
+                do_the_math.Print_resultat();
 
-                        }
-                        break;
-                    default:
-                        Console.WriteLine("Använd lämplig operator din dummer");                      
-                        break;
+                history.Add(new Calc(tal1,tal2,do_the_math.Calc_operator));
 
-                }
+
             } while (read != "MARCUS");
            
             Console.WriteLine("Kalkyl Historik: ");
-            foreach (string calc in history)
+            foreach (Calc calc in history)
             {
-                Console.WriteLine(calc);
+                calc.Print_resultat();
+
             }
             Console.WriteLine("Hej då");
             
