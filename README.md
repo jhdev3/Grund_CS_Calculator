@@ -1,11 +1,16 @@
 # OOP_Calc
+main:
+  Front_end:
+  Checking_inputs to calc_class
+  
+  
+Calc_class:
+Varibales:       
+    num1,
+    num2
+    result 
+    calc_op          
+Operations:
+    Do calcs and write Results
+                         
 
-Calc class: 
-------------------
-|Varibales:       |
-|num1,num1,result |
-|calc_op          |
--------------------
-|Do calcs and write|
-|Results           |
---------------------
