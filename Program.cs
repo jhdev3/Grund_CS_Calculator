@@ -75,9 +75,17 @@ namespace Calculator
                         history.Add(tal1 + calc_operator + tal2 + " = " + resultat);
                         break;
                     case "/":
-                        resultat = tal1 / tal2;
-                        Console.WriteLine("{0} / {1} = {2} ", tal1, tal2, resultat);
-                        history.Add(tal1 + calc_operator + tal2 + " = " + resultat);
+                        if (tal2 != 0)
+                        {
+                            resultat = tal1 / tal2;
+                            Console.WriteLine("{0} / {1} = {2} ", tal1, tal2, resultat);
+                            history.Add(tal1 + calc_operator + tal2 + " = " + resultat);
+                        }
+                        else
+                        {
+                            Console.WriteLine("{0} / {1} = To Infinity and beyond xD ", tal1, tal2);
+
+                        }
                         break;
                     default:
                         Console.WriteLine("Använd lämplig operator din dummer");                      
