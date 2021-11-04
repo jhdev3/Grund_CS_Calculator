@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Calculator // Same namespace = call ing main
+namespace Calculator // Same namespace = as Program.cs
 {
     public class Calc
     {
-        private float num1;
-        private float num2;
+        public float num1;  // float spara minne 32 bit = värden från +- 2,6 e35 borde vara tillräckligt  :)
+        public float num2;
         private float result;
-        private string calc_operator;
+        public string calc_operator;
 
         public Calc()
         {
@@ -23,41 +23,40 @@ namespace Calculator // Same namespace = call ing main
             this.num1 = one;
             this.num2 = two;
             this.calc_operator = cal;
-        }   
-
-        public float Num1
-        {
-            get { return this.num1; }
-
-            set
-            {
-                this.num1 = value;
-            }
-        } //Testing get / set
-
-        public float Num2
-        {
-            get { return this.num2; }
-
-            set
-            {
-                this.num2 = value;
-            }
-
         }
 
-        public string Calc_operator
-        {
-            get { return this.calc_operator; }
+        //public float Num1
+        //{
+        //    get { return this.num1; }
 
-            set
-            {
-                this.calc_operator = value;
+        //    set
+        //    {
+        //        this.num1 = value;
+        //    }
+        //} //Testing get / set
 
-            }
+        //public float Num2
+        //{
+        //    get { return this.num2; }
 
-        }
+        //    set
+        //    {
+        //        this.num2 = value;
+        //    }
 
+        //}
+
+        //public string Calc_operator
+        //{
+        //    get { return this.calc_operator; }
+
+        //    set
+        //    {
+        //        this.calc_operator = value;
+
+        //    }
+
+        //}
 
         public void Print_resultat()
         {
