@@ -5,80 +5,99 @@ namespace Calculator
 {
     class Program
     {
-        // TryParse framför Pars TryParse returnar 0 om det misslyckas istället för Excetions så gör det enklare att hantera och gå vidare med TryParse
-        private static float check_input_float(string input) //Gör om string till float. 
+        public static float tal1, tal2;
+        static string math_operator;
+
+
+
+
+        // TryParse framför Pars TryParse returnar 0 om det misslyckas istället för olika exceptions. så gör det enklare att hantera och gå vidare med TryParse
+        static float Check_input_float(string input) //Gör om string till float. 
         {
-                bool check = true;
-                float f;
-
-                do
-                {
-                    check = float.TryParse(input, out f);
-
-                    if (check == false)
-                    {
-                        Console.WriteLine("Felaktigt inmating, Mata in ett talet på nytt tack :)");  // Cant Quit program from here, not the point either. 
-                        input = Console.ReadLine();
-                    }
-
-                } while (!check); //Same as the if-statment above, just using logical operators.  
-            
-                return f;
-           }
-           
-        static void Main(string[] args)
-        {
-            float tal1=0, tal2=0, resultat; //Lägga som private/public i klass kanske för OOP standard = 0
-            string read;
-            List<Calc>  history = new List<Calc>(); //Skapar en array/lista/vector
-            Calc do_the_math = new Calc();
-
-            Console.WriteLine("En fantatiskt miniräknare, där om du vill AVSLUTA matar in MARKUS \n Mata in ett tal:");
+            bool check = true;
+            float f;
 
             do
             {
+                check = float.TryParse(input, out f);
 
-                read = Console.ReadLine();
-                if (read == "MARCUS")
+                if (check == false)
                 {
-                    break;
+                    Console.WriteLine("Felaktigt inmating av talet {0} Mata in ett talet på nytt tack :)", input);  // Cant Quit program from here, not the point either. 
+                    input = Console.ReadLine();
                 }
-                tal1 = check_input_float(read);
-                do_the_math.Num1 = tal1;
 
-                read = Console.ReadLine();
-                if (read == "MARCUS")
-                {
-                    break;
-                }
-                do_the_math.Calc_operator = read;
+            } while (!check); //Same as the if-statment above, just using logical operators.  
 
-                read = Console.ReadLine();
-                if (read =="MARCUS") {
-                    break;
-                }
-                tal2 = check_input_float(read);
-                do_the_math.Num2 = tal2;
+            return f;
+        }
 
-                do_the_math.Print_resultat();
-
-                history.Add(new Calc(tal1,tal2,do_the_math.Calc_operator));
+        static void Get_input(string read) //Testar lika olika typer av input.
+        {
+            string[] input_array;
+            input_array = read.Split(" "); //Vore trevligt att splita med operatorn men den sätts lite längre ner :). 
 
 
-            } while (read != "MARCUS");
-           
-            Console.WriteLine("Kalkyl Historik: ");
-            foreach (Calc calc in history)
+            if (input_array.Length == 3)
             {
-                calc.Print_resultat();
+                tal1 = Check_input_float(input_array[0]);
+                math_operator = input_array[1];
+                tal2 = Check_input_float(input_array[2]);
 
             }
+            else if (input_array.Length == 4 && string.IsNullOrWhiteSpace(input_array[3])) //Råkar få med ett extra mellan slag då det blir split mellan slag, trevligare med trim => split operator osv. 
+            {
+                tal1 = Check_input_float(input_array[0]);
+                math_operator = input_array[1];
+                tal2 = Check_input_float(input_array[2]);
+            }
+            else //Standard input rad efter rad
+            {
+                tal1 = Check_input_float(input_array[0]);
+                math_operator = Console.ReadLine();
+                tal2 = Check_input_float(Console.ReadLine());
+
+            }
+
+        }
+
+
+        static void Main(string[] args)
+        {
+            string read;
+            List<Calc> history = new List<Calc>(); //Skapar en array/lista/vector
+
+            Console.WriteLine("En fantatiskt miniräknare, där om du vill AVSLUTA matar in MARCUS \n Mata in ett tal:");
+
+            do
+            {
+                read = Console.ReadLine();
+
+                Get_input(read);
+
+                Calc do_the_math = new Calc(tal1, tal2);
+
+                do_the_math.Calc_operator = math_operator; //Last check point in this Calc of DOOOM.
+
+                Console.WriteLine(do_the_math.Print_result());
+
+                history.Add(do_the_math);
+
+            } while (read != "MARCUS");
+
+            Console.WriteLine("\t Kalkyl Historik: ");
+            foreach (Calc calc in history)
+            {
+                Console.WriteLine("\t \t" + calc.Print_result());
+
+            }
+
             Console.WriteLine("Hej då");
-            
+
             Console.ReadKey();
         }
 
-       
+
     }
 
 }
