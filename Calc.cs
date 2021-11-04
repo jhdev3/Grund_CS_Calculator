@@ -44,8 +44,24 @@ namespace Calculator // Same namespace = as Program.cs
         //    }
 
         //}
+        public string trim_to_be_implemented_in_program(string trim)
+        {
+             trim = "Blablabla balla babalab";
+            string temp = string.Empty;
+            char whitespace = ' ';
 
-        public string Calc_operator 
+            foreach (char a in trim)
+            {
+                if (a != whitespace)
+                    temp += a;
+
+            }
+            Console.WriteLine(temp);
+            return temp;
+        }
+
+
+    public string Calc_operator 
         {
             get { return this.calc_operator; }
 

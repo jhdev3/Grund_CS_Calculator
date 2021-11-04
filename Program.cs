@@ -9,7 +9,7 @@ namespace Calculator
         static string math_operator;
 
 
-
+        
 
         // TryParse framför Pars TryParse returnar 0 om det misslyckas istället för olika exceptions. så gör det enklare att hantera och gå vidare med TryParse
         static float Check_input_float(string input) //Gör om string till float. 
@@ -67,6 +67,8 @@ namespace Calculator
             string read;
             List<Calc> history = new List<Calc>(); //Skapar en array/lista/vector
 
+
+
             Console.WriteLine("En fantatiskt miniräknare, där om du vill AVSLUTA matar in MARCUS \n Mata in ett tal:");
 
             do
@@ -103,3 +105,23 @@ namespace Calculator
 }
 
 
+
+/* 
+ Trim-
+
+string trim = "Blablabla balla babalab" 
+string temp;
+char whitespace = ' ';
+
+foreach(char a in trim){
+        if(a != whitespace)
+            temp += a;
+        
+}
+ Console.WriteLine(temp);
+ 
+ 
+ 
+ 
+ 
+ */ 
