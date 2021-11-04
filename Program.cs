@@ -23,7 +23,7 @@ namespace Calculator
 
                 if (check == false)
                 {
-                    Console.WriteLine("Felaktigt inmating, Mata in ett talet på nytt tack :)");  // Cant Quit program from here, not the point either. 
+                    Console.WriteLine("Felaktigt inmating av talet {0} Mata in ett talet på nytt tack :)", input);  // Cant Quit program from here, not the point either. 
                     input = Console.ReadLine();
                 }
 
@@ -32,44 +32,32 @@ namespace Calculator
             return f;
         }
 
-        static void Get_input(string read)
+        static void Get_input(string read) //Testar lika olika typer av input.
         {
             string[] input_array;
-            input_array = read.Split(" ");
+            input_array = read.Split(" "); //Vore trevligt att splita med operatorn men den sätts lite längre ner :). 
 
-
-            // Console.WriteLine("Array-Length: {0}", input_array.Length); Felsökning 
 
             if (input_array.Length == 3)
             {
                 tal1 = Check_input_float(input_array[0]);
                 math_operator = input_array[1];
                 tal2 = Check_input_float(input_array[2]);
-                Console.WriteLine("IF-Statment-Complete");
 
             }
-            else if (input_array.Length == 4 && string.IsNullOrWhiteSpace(input_array[3]))
+            else if (input_array.Length == 4 && string.IsNullOrWhiteSpace(input_array[3])) //Råkar få med ett extra mellan slag då det blir split mellan slag, trevligare med trim => split operator osv. 
             {
                 tal1 = Check_input_float(input_array[0]);
                 math_operator = input_array[1];
                 tal2 = Check_input_float(input_array[2]);
-                Console.WriteLine("IF-Statment-Else-ife-Complete");
             }
-            else
+            else //Standard input rad efter rad
             {
                 tal1 = Check_input_float(input_array[0]);
                 math_operator = Console.ReadLine();
                 tal2 = Check_input_float(Console.ReadLine());
-                Console.WriteLine("Else-statment-Complete");
 
             }
-
-            //foreach (string t in input_array)
-            //{
-
-            //    Console.WriteLine("Your input: {0}", t);
-
-            //}
 
         }
 
@@ -79,34 +67,31 @@ namespace Calculator
             string read;
             List<Calc> history = new List<Calc>(); //Skapar en array/lista/vector
 
-            Console.WriteLine("En fantatiskt miniräknare, där om du vill AVSLUTA matar in MARKUS \n Mata in ett tal:");
+            Console.WriteLine("En fantatiskt miniräknare, där om du vill AVSLUTA matar in MARCUS \n Mata in ett tal:");
 
             do
             {
-
                 read = Console.ReadLine();
-                if (read == "MARCUS")
-                {
-                    break;
-                }
 
                 Get_input(read);
 
+                Calc do_the_math = new Calc(tal1, tal2);
 
-                Calc do_the_math = new Calc(tal1, tal2, math_operator);
-                do_the_math.Print_resultat();
+                do_the_math.Calc_operator = math_operator; //Last check point in this Calc of DOOOM.
+
+                Console.WriteLine(do_the_math.Print_result());
+
                 history.Add(do_the_math);
-
-
 
             } while (read != "MARCUS");
 
-            Console.WriteLine("Kalkyl Historik: ");
+            Console.WriteLine("\t Kalkyl Historik: ");
             foreach (Calc calc in history)
             {
-                calc.Print_resultat();
+                Console.WriteLine("\t \t" + calc.Print_result());
 
             }
+
             Console.WriteLine("Hej då");
 
             Console.ReadKey();
