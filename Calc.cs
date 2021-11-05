@@ -22,6 +22,8 @@ namespace Calculator // Same namespace = as Program.cs
         {
             this.num1 = one;
             this.num2 = two;
+            this.result = 0;
+            this.calc_operator = string.Empty;
         }
 
         //public float Num1
@@ -44,22 +46,7 @@ namespace Calculator // Same namespace = as Program.cs
         //    }
 
         //}
-        public string trim_to_be_implemented_in_program(string trim)
-        {
-             trim = "Blablabla balla babalab";
-            string temp = string.Empty;
-            char whitespace = ' ';
-
-            foreach (char a in trim)
-            {
-                if (a != whitespace)
-                    temp += a;
-
-            }
-            Console.WriteLine(temp);
-            return temp;
-        }
-
+    
 
     public string Calc_operator 
         {
@@ -67,7 +54,7 @@ namespace Calculator // Same namespace = as Program.cs
 
             set
             {
-                this.calc_operator = value.Trim(); //Remove Whitespaces etc
+                this.calc_operator = value;
                 //Time to check this value.
                 string check_value = Print_result();
 
