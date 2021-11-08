@@ -99,8 +99,9 @@ namespace Calculator
             else //Standard input rad efter rad
             {
                 tal1 = Check_input_float(input_array[0]);
-                math_operator = Console.ReadLine();
-                tal2 = Check_input_float(Console.ReadLine());
+                math_operator = Console.ReadLine(); // Avsluta på Marcus behöver en extra kontroll efter input
+                if(math_operator != "MARCUS")
+                       tal2 = Check_input_float(Console.ReadLine());
 
             }
         }
@@ -122,14 +123,20 @@ namespace Calculator
                 if (read != "MARCUS")
                 {
                     Get_input(read);
+                    if (math_operator == "MARCUS")
+                        read = "MARCUS";
 
-                    Calc do_the_math = new Calc(tal1, tal2);
+                    else
+                    {
+                        Calc do_the_math = new Calc(tal1, tal2);
 
-                    do_the_math.Calc_operator = math_operator; //Last check point in this Calc of DOOOM.
+                        do_the_math.Calc_operator = math_operator; //Last check point in this Calc of DOOOM.
 
-                    Console.WriteLine(do_the_math.Print_result());
+                        Console.WriteLine(do_the_math.Print_result());
 
-                    history.Add(do_the_math);
+                        history.Add(do_the_math);
+                    }
+               
                 }
 
             } while (read != "MARCUS");
