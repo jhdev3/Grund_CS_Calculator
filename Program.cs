@@ -78,17 +78,17 @@ namespace Calculator
             if(temp != string.Empty) //En rad eller bara sista talet i raden. 
                 temp_array[array_index] += temp;
            
-            foreach(string a in temp_array)
-            {
-                Console.WriteLine(a);
-            }
+            //foreach(string a in temp_array)
+            //{
+            //    Console.WriteLine(a);
+            //}
 
             return temp_array;
         }
 
         static void Get_input(string read) //Testar lika olika typer av input.
         {
-            string[] input_array = Trim_and_stuff(read);
+            string[] input_array = Trim_and_stuff(read); //Avsulta på en rad sök efter ordet annars trim men varför ? 
 
             if (input_array[1] != null)
             {
@@ -100,7 +100,7 @@ namespace Calculator
             {
                 tal1 = Check_input_float(input_array[0]);
                 math_operator = Console.ReadLine(); // Avsluta på Marcus behöver en extra kontroll efter input
-                if(math_operator != "MARCUS")
+                if(math_operator != "MARCUS") //Vill man avsulta 
                        tal2 = Check_input_float(Console.ReadLine());
 
             }
