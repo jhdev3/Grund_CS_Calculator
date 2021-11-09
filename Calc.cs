@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+
+
 
 namespace Calculator // Same namespace = as Program.cs
 {
@@ -111,3 +111,32 @@ namespace Calculator // Same namespace = as Program.cs
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+/*   
+ *   Float/double dont throw any overflows exceptions :) 
+ *   try
+                    {
+                        unchecked { 
+                        result = num1 * num2;
+                        }
+                        checked
+                        {
+                            result = num1 * num2;
+
+                        }
+                        // Placera kod här som KAN ge ett oväntat undantag
+                    }
+                    catch (Exception )
+                    {
+                        Console.WriteLine("TESTA EXECPTION");
+                    } */

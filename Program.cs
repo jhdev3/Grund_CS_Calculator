@@ -5,7 +5,7 @@ namespace Calculator
 {
     class Program
     {
-        public static float tal1, tal2;
+        public static float tal1, tal2;  //Räcker med static där, i Prgoram classen kul att se vad som händer med olika deklaringar. 
         static string math_operator;
 
 
@@ -106,6 +106,16 @@ namespace Calculator
             }
         }
 
+        static void History(List<Calc> h)
+        {
+            Console.WriteLine("\t Kalkyl Historik: ");
+            foreach (Calc calc in h)
+            {
+                Console.WriteLine("\t \t" + calc.Print_result());
+
+            }
+
+        }
 
         static void Main(string[] args)
         {
@@ -120,35 +130,44 @@ namespace Calculator
             {
                 read = Console.ReadLine();
 
-                if (read != "MARCUS")
+
+                switch (read)
                 {
-                    Get_input(read);
-                    if (math_operator == "MARCUS")
-                        read = "MARCUS";
+                    case "MARCUS":  
+                        Console.WriteLine(" \t  Hej då \n");
+                        break;
+                    case "help":
+                        Console.WriteLine("Avsluta genom att skriva ditt användarnamn: ");
+                        Console.WriteLine("Mata in det som du vill räkna ut på en rad eller en rad i taget");
+                        Console.WriteLine("Skriv historik, för att få se calculatorns historik" );
 
-                    else
-                    {
-                        Calc do_the_math = new Calc(tal1, tal2);
+                        break;
+                    case "historik":
+                        History(history);
+                        break;
+                    default:
+                        Get_input(read);
+                        if (math_operator == "MARCUS")
+                            read = "MARCUS";
 
-                        do_the_math.Calc_operator = math_operator; //Last check point in this Calc of DOOOM.
+                        else
+                        {
+                            Calc do_the_math = new Calc(tal1, tal2);
 
-                        Console.WriteLine(do_the_math.Print_result());
+                            do_the_math.Calc_operator = math_operator; //Last check point in this Calc of DOOOM.
 
-                        history.Add(do_the_math);
-                    }
-               
+                            Console.WriteLine(do_the_math.Print_result());
+
+                            history.Add(do_the_math);
+                        }
+                        break;
+
                 }
 
             } while (read != "MARCUS");
 
-            Console.WriteLine("\t Kalkyl Historik: ");
-            foreach (Calc calc in history)
-            {
-                Console.WriteLine("\t \t" + calc.Print_result());
 
-            }
-
-            Console.WriteLine("Hej då");
+            History(history);
 
             Console.ReadKey();
         }
@@ -161,7 +180,7 @@ namespace Calculator
 
 
 /* 
- Trim-
+ Trim-version 1
 
 string trim = "Blablabla balla babalab" 
 string temp;
