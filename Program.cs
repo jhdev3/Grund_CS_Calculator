@@ -88,7 +88,7 @@ namespace Calculator
             return temp_array;
         }
 
-        static void Get_input(string read) //Testar lika olika typer av input.
+        static bool Get_input(string read) //Testar lika olika typer av input.
         {
             string[] input_array = Trim_and_stuff(read); //Avsulta på en rad sök efter ordet annars trim men varför ? 
 
@@ -96,14 +96,17 @@ namespace Calculator
             {
                 tal1 = Check_input_float(input_array[0]);
                 tal2 = Check_input_float(input_array[1]);
+                return true;
 
             }     
             else //Standard input rad efter rad
             {
                 tal1 = Check_input_float(input_array[0]);
                 math_operator = Console.ReadLine(); // Avsluta på Marcus behöver en extra kontroll efter input
-                if(math_operator != "MARCUS") //Vill man avsulta 
-                       tal2 = Check_input_float(Console.ReadLine());
+                if (math_operator == "MARCUS") //Vill man avsulta 
+                    return false;
+                tal2 = Check_input_float(Console.ReadLine());
+                return true;
 
             }
         }
@@ -113,10 +116,7 @@ namespace Calculator
             Console.WriteLine("\t Kalkyl Historik: ");
             foreach (Calc calc in h)
             {
-                calc.Calc_operator = Console.ReadLine();
-
                 Console.WriteLine("\t \t" + calc.Print_result());
-
             }
 
         }
@@ -147,11 +147,8 @@ namespace Calculator
                         History(history);
                         break;
                     default:
-                        Get_input(read);
-                        if (math_operator == "MARCUS")
-                            read = "MARCUS";
-
-                        else
+                       
+                        if (Get_input(read))
                         {
                             Calc do_the_math = new Calc(tal1, tal2);
 
@@ -160,6 +157,11 @@ namespace Calculator
                             Console.WriteLine(do_the_math.Print_result());
 
                             history.Add(do_the_math);
+                        }
+                        else
+                        {
+                            
+                            read = "MARCUS";
                         }
                         break;
 
