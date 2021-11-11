@@ -13,7 +13,7 @@ namespace Calculator // Same namespace = as Program.cs
 
         public Calc()
         {
-            this.num1 = 0;
+            this.num1 = 0; 
             this.num2 = 0;
             this.result = 0;
             this.calc_operator = "Give operator";
@@ -23,7 +23,7 @@ namespace Calculator // Same namespace = as Program.cs
             this.num1 = one;
             this.num2 = two;
             this.result = 0;
-            this.calc_operator = string.Empty;
+            this.calc_operator = null;
         }
 
         //public float Num1
@@ -111,13 +111,6 @@ namespace Calculator // Same namespace = as Program.cs
 
     }
 }
-
-
-
-
-
-
-
 
 
 

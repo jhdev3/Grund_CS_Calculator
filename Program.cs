@@ -10,22 +10,24 @@ namespace Calculator
 
 
         // TryParse framför Pars TryParse returnar 0 om det misslyckas istället för olika exceptions. så gör det enklare att hantera och gå vidare med TryParse
+       
+     
         static float Check_input_float(string input) //Gör om string till float. 
         {
-            bool check = true;
+            bool check_input = true;
             float f;
 
             do
             {
-                check = float.TryParse(input, out f);
+                check_input = float.TryParse(input, out f);
 
-                if (check == false)
+                if (check_input == false)
                 {
                     Console.WriteLine("Det här: {0} är inget tal!!!  Försök igen :)", input);  // Cant Quit program from here, not the point either. 
                     input = Console.ReadLine();
                 }
 
-            } while (!check); //Same as the if-statment above, just using logical operators.  
+            } while (!check_input); //Same as the if-statment above, just using logical operators.  
 
             return f;
         }
@@ -111,6 +113,8 @@ namespace Calculator
             Console.WriteLine("\t Kalkyl Historik: ");
             foreach (Calc calc in h)
             {
+                calc.Calc_operator = Console.ReadLine();
+
                 Console.WriteLine("\t \t" + calc.Print_result());
 
             }
@@ -120,9 +124,7 @@ namespace Calculator
         static void Main(string[] args)
         {
             string read;
-            List<Calc> history = new List<Calc>(); //Skapar en array/lista/vector
-
-
+            List<Calc> history = new List<Calc>(); //Skapar en array
 
             Console.WriteLine("En fantatiskt miniräknare, där om du vill AVSLUTA matar in MARCUS \n Mata in ett tal:");
 
@@ -140,7 +142,6 @@ namespace Calculator
                         Console.WriteLine("Avsluta genom att skriva ditt användarnamn: ");
                         Console.WriteLine("Mata in det som du vill räkna ut på en rad eller en rad i taget");
                         Console.WriteLine("Skriv historik, för att få se calculatorns historik" );
-
                         break;
                     case "historik":
                         History(history);
@@ -192,9 +193,4 @@ foreach(char a in trim){
         
 }
  Console.WriteLine(temp);
- 
- 
- 
- 
- 
  */ 
