@@ -102,8 +102,8 @@ namespace Calculator
             else //Standard input rad efter rad
             {
                 tal1 = Check_input_float(input_array[0]);
-                math_operator = Console.ReadLine(); // Avsluta på Marcus behöver en extra kontroll efter input
-                if (math_operator == "MARCUS") //Vill man avsulta 
+                math_operator = Console.ReadLine(); // Avsluta med hjälp av operatorn 
+                if (math_operator == "MARCUS") 
                     return false;
                 tal2 = Check_input_float(Console.ReadLine());
                 return true;

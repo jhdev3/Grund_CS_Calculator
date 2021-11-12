@@ -33,51 +33,64 @@ namespace Calculator.data
                 Save_user();
             }
         }
-        public string Background_color
+        private void Background_color(string input) //String to console color i set så samma i get :) 
         {
-            get { return $"{this.background_color}"; }
 
-            set
+            ConsoleColor consoleColor;
+
+            if (ConsoleColor.TryParse(input, out consoleColor)) //Lika som background bara att background => Enum förklarar datatypen ConsoleColor bättre ;) //Kan göra check vid input.
             {
-                ConsoleColor consoleColor;
-
-                if (Enum.TryParse(value, out consoleColor))
-                {
-                    this.background_color = consoleColor;
-                    //Console.WriteLine("Backgrunds färgen: {0} Uppdateringen lyckades  :)", consoleColor);
-                    Save_user();
-                }
-                else
-                { 
-                    Console.WriteLine("BackgroundColor Error");
-                }
-
-
+                this.background_color = consoleColor;
             }
+            else
+            {
+                Console.WriteLine("Tyvärr felaktig imatning: {0}  backgrunds färgen kommer förbli: {1} ", input, this.background_color);
+            }
+
+
+     
         }
-        public string Text_color
+
+        public string Format_String(string test) // Format_String_for_stupid_users:)
         {
-            get { return $"{this.text_color}"; }
 
-            set
+
+
+            if(test != null && test.Length > 2) //Minsta färgen = Red = 3 ^^
             {
-                ConsoleColor consoleColor;
+                string make_lower = test.ToLower();
+                Console.WriteLine(make_lower);
 
-                if (ConsoleColor.TryParse(value, out consoleColor)) //Lika som background bara att background => Enum förklarar datatypen ConsoleColor bättre ;) //Kan göra check vid input.
-                {
-                    this.text_color = consoleColor;
-                    Save_user();
+                test.ToUpper();
+                Console.WriteLine(test.ToUpper());
 
-                    //   Console.Clear();// För att ändra hela consolen. 
-                   // Console.WriteLine("Bra val av text färg: {0}  :)", consoleColor);
+                string make_magic = test[0] + make_lower.Substring(1);
+                Console.WriteLine(make_magic);
 
-                }
-                else
-                {
-                    Console.WriteLine("Tyvärr felaktig imatning text färgen kommer förbli {0} du kan göra ett nytt försök :)", text_color);
-                }
+
+                return make_magic;
 
             }
+            else
+                return test; //TryParse handling badstrings to :)
+
+        }
+
+        public void Text_color(string input)
+        {
+            ConsoleColor consoleColor;
+
+
+            if (Enum.TryParse(input, out consoleColor)) //Lika som background => Enum förklarar datatypen ConsoleColor bättre ;) 
+            {
+                this.text_color = consoleColor;
+                Console.WriteLine("Bra val av textfärgen: " + consoleColor);
+
+            }
+            else
+            {
+                  Console.WriteLine("Tyvärr felaktig imatning: {0} färgen på texten kommer förbli: {1}:)", input  ,this.text_color);
+             }    
         }
 
         public void Update_background_text() //Uppdaterar consolen viktigt med console clear för bakgrunden :)  
@@ -95,7 +108,7 @@ namespace Calculator.data
             Console.WriteLine("Lista för alla valbara färger: ");
          
             Console.WriteLine("\t {0}", ConsoleColor.Black);
-
+                                                                //Utan console.clear för att det ska gå att se alla färger bra beroende på vilken backgrund användaren valt xD
 
             foreach (var color in colors)
             {
@@ -109,17 +122,6 @@ namespace Calculator.data
             }
         }
 
-        /*
-         * Läsa och skriv till fil, för att spara användar uppgifterna namn och färg på consolen etc
-         *
-         *  Finns en hel del olika sätt bestäma vart textfilen ska, enklaste är att ha den i samma map som kör/exe filen hamnar vi compilering. I visual stuido är det främs debug då jag compilerar dit
-         *  taken att hämta path är för säkerhet och kontroll går att compilera till realese med ;) 
-         *
-           string startupPath = System.IO.Directory.GetCurrentDirectory();
-
-            string startupPath = Environment.CurrentDirectory;
-         * 
-         */
         private string Path_to_root()
         {
             try
@@ -142,14 +144,14 @@ namespace Calculator.data
 
         public void create_new_user()
         {
-            Console.WriteLine("Hej dags göra calculatorn personlig :), mata in ett användarnamn användarnamnet för inte innehålla något mellanslag: ");
+            Console.WriteLine("Hej dags göra calculatorn personlig :), mata in ett roligt användarnamn:  ");
             User_name = Console.ReadLine();
             Console.WriteLine("Nu har du även möjligheten att ändra text och backgrunds färg :)");
             Colors_Available();
-            Console.WriteLine("Mata in en text färg, för att det ska bli rätt tänk på stor bokstav först: ");
-            Text_color = Console.ReadLine();
-            Console.WriteLine("Mata in en backgrunds färg, för att det ska bli rätt tänk på stor bokstav först: ");
-            Background_color = Console.ReadLine();
+            Console.WriteLine("Mata in en text färg från listan: ");
+            Text_color(Console.ReadLine()); 
+            Console.WriteLine("Mata in en backgrunds färg från listan: ");
+            Background_color(Console.ReadLine());
         }
 
 
@@ -162,7 +164,7 @@ namespace Calculator.data
             try
             {
                 
-                    string save_user = string.Format("{0}\n{1}\n{2}", User_name, Text_color, Background_color);
+                    string save_user = string.Format("{0}\n{1}\n{2}", User_name, this.text_color, this.background_color);
                     File.WriteAllText(text_file, save_user);
                 
             }
@@ -174,6 +176,16 @@ namespace Calculator.data
             }
         }
        
+        private ConsoleColor Parsing(string color, ConsoleColor current) 
+        {
+            ConsoleColor temp;
+
+            if(ConsoleColor.TryParse(color, out temp))
+            {
+                return temp;
+            }
+            return current;
+        }
         public void Read_from_file()
         {
             
@@ -190,20 +202,13 @@ namespace Calculator.data
             {
                 //använda using + StreamReader autmatiskt öppnar och stänger filen när den är klar => Amazing xD 
 
-                /*
-                 *          User_name = sr.ReadLine(); this works instead of line but dont like it
-                            Text_color = sr.ReadLine();
-                            Background_color = sr.ReadLine(); 
-                 */
-                string[] user_inputs = new string[3];
+                string[] user_inputs = new string[3]; 
                 int index = 0;
                 try
                 {
                     using (StreamReader sr = new StreamReader(text_file))
                     {
                         string line;
-
-                        // Read and display lines from the file until the end of
                         while ((line = sr.ReadLine()) != null)
                         {
                             Console.WriteLine(line);
@@ -222,9 +227,12 @@ namespace Calculator.data
                     Console.WriteLine(e.Message);
                 }
 
-                User_name = user_inputs[0];
-                Text_color = user_inputs[1];
-                Background_color = user_inputs[2];
+                this.user_name = user_inputs[0];
+                this.text_color = Parsing(user_inputs[1], this.text_color);//If someone stuipid changes the txt file, not using this program ^^^^^^^^
+                this.background_color = Parsing(user_inputs[2], this.background_color);
+
+                Console.WriteLine($"{User_name}   {this.text_color}   {this.background_color}");
+
                 Console.ReadKey();
 
                 Update_background_text();
@@ -240,34 +248,33 @@ namespace Calculator.data
 
         static void Main(string[] args)
         {
-            Console.ReadKey();
 
             User ny = new User();
 
-            //ny.Colors_Available();
-            //ny.Background_color = Console.ReadLine();
-            // ny.Text_color = Console.ReadLine();
-            ny.Read_from_file();
-
-            ny.Update_background_text();
-
-            Console.WriteLine("Användarnamn: " + ny.User_name);
-
-            Console.WriteLine("Matar in nya data: ");
-            ny.Colors_Available();
-
-            ny.User_name = Console.ReadLine();
-            ny.Background_color = Console.ReadLine();
-            ny.Text_color = Console.ReadLine();
-
-
-            ny.Update_background_text();
-
-
-            Console.WriteLine("Backgrunds_Färg: " + ny.Background_color);
-
+            ny.Format_String(Console.ReadLine());
             Console.ReadKey();
-           //Felsök:) File.Delete(@"C:\Users\eneby\OneDrive\Bilder\TUC\Programmering Grund\Calculator\Grund_CS_Calculator\bin\Debug\netcoreapp3.1\user_config.txt");
+
+            //ny.Read_from_file();
+
+            //ny.Update_background_text();
+
+            //Console.WriteLine("Användarnamn: " + ny.User_name);
+
+            //Console.WriteLine("Matar in nya data: ");
+            //ny.Colors_Available();
+
+            //ny.User_name = Console.ReadLine();
+            //ny.Text_color(Console.ReadLine());
+
+            //Console.ReadKey();
+
+            //ny.Text_color(Console.ReadLine());
+
+            //Console.ReadKey();
+
+            //ny.Update_background_text();
+            //Console.ReadKey();
+            //Felsök:) File.Delete(@"C:\Users\eneby\OneDrive\Bilder\TUC\Programmering Grund\Calculator\Grund_CS_Calculator\bin\Debug\netcoreapp3.1\user_config.txt");
 
         }
     }
