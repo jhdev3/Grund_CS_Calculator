@@ -23,20 +23,45 @@ namespace Calculator.data
 
         }
 
-        public string User_name
+        public string User_name//enda kravet inga mellanslag allowed ;)
         {
             get { return this.user_name; }
 
             set
             {
-                this.user_name = value; //Gör en koll så att strängen inte inehåller whitespace
-                Save_user();
+                if (Check_whitespace(value))
+                {
+                    this.user_name = value; //Gör en koll så att strängen inte inehåller whitespace
+                    Console.WriteLine("Ditt användarnamn är nu: {0} ", this.user_name);
+
+                    Save_user();
+                }
+                else
+                    Console.WriteLine("Dåligt val av användarnamn {0} \n det får inte innehålla whitespaces :(  \n ditt användarnamn är: {1} ", value, this.user_name);
             }
+        }
+        private bool Check_whitespace(string to_beC)
+        {
+            char a;
+            char whitespace = ' ';
+            if (to_beC == null || to_beC == string.Empty) // kan använda string.IsNullOrEmpty(to_beC) etc men vill använda for loop:)
+                return false;
+            
+            for(int i=0;i < to_beC.Length; i++)
+            {
+                a = to_beC[i];
+                if (a == whitespace)
+                    return false;
+            }
+            return true;
+
+
         }
         private void Background_color(string input) //String to console color i set så samma i get :) 
         {
 
             ConsoleColor consoleColor;
+            input = String_for_ConsoleColor(input);
 
             if (ConsoleColor.TryParse(input, out consoleColor)) //Lika som background bara att background => Enum förklarar datatypen ConsoleColor bättre ;) //Kan göra check vid input.
             {
@@ -46,45 +71,42 @@ namespace Calculator.data
             {
                 Console.WriteLine("Tyvärr felaktig imatning: {0}  backgrunds färgen kommer förbli: {1} ", input, this.background_color);
             }
-
-
-     
         }
 
-        public string Format_String(string test) // Format_String_for_stupid_users:)
+
+        /* 
+         
+            Bara första bokstaven görs till upper
+            DarkRed etc Colors är CaseSensetive av en anledning :) 
+        Går att utveckla till att genom att jämföra hela Color listan=> lowercase och sedan göra de ändringar som behövs.
+         
+         
+         */
+        public string String_for_ConsoleColor(string test) // en liten hjälp till använderan så en stor/liten bokstav inte orsakr irrterande fel. 
         {
-
-
 
             if(test != null && test.Length > 2) //Minsta färgen = Red = 3 ^^
             {
-                string make_lower = test.ToLower();
-                Console.WriteLine(make_lower);
-
+                string save_test = test; 
                 test.ToUpper();
-                Console.WriteLine(test.ToUpper());
-
-                string make_magic = test[0] + make_lower.Substring(1);
-                Console.WriteLine(make_magic);
-
-
+                string make_magic = test[0] + save_test.Substring(1);
                 return make_magic;
-
             }
             else
-                return test; //TryParse handling badstrings to :)
+                return test; //TryParse hanterar felaktiga färger och dåliga strängar också :)
 
         }
 
-        public void Text_color(string input)
+        private void Text_color(string input)
         {
             ConsoleColor consoleColor;
 
+            input = String_for_ConsoleColor(input);
 
             if (Enum.TryParse(input, out consoleColor)) //Lika som background => Enum förklarar datatypen ConsoleColor bättre ;) 
             {
                 this.text_color = consoleColor;
-                Console.WriteLine("Bra val av textfärgen: " + consoleColor);
+               // Console.WriteLine("Bra val av textfärgen: " + consoleColor); om man vill se vad som händer checking :) 
 
             }
             else
@@ -95,6 +117,8 @@ namespace Calculator.data
 
         public void Update_background_text() //Uppdaterar consolen viktigt med console clear för bakgrunden :)  
         {
+            Console.WriteLine("Text och backgrundsfärg är nu uppdaterade slå på en valfri tangent för att gå vidare xD: ");
+            Console.ReadKey();
             Console.ForegroundColor = text_color;
             Console.BackgroundColor = background_color;
             Console.Clear();
@@ -120,6 +144,11 @@ namespace Calculator.data
 
                 }
             }
+
+            Console.ForegroundColor = this.text_color;
+            Console.BackgroundColor = this.background_color;
+
+
         }
 
         private string Path_to_root()
@@ -149,24 +178,48 @@ namespace Calculator.data
             Console.WriteLine("Nu har du även möjligheten att ändra text och backgrunds färg :)");
             Colors_Available();
             Console.WriteLine("Mata in en text färg från listan: ");
-            Text_color(Console.ReadLine()); 
+            string t_color = Console.ReadLine();
             Console.WriteLine("Mata in en backgrunds färg från listan: ");
-            Background_color(Console.ReadLine());
+            string bg_color = Console.ReadLine();
+
+            if (bg_color != t_color)
+            {
+                Background_color(bg_color);
+                Text_color(t_color);
+            }
+            else
+            {
+                Console.WriteLine("Backgrunds färgen och text-färgen får inte vara samma \n går att uppdatera, just nu är: \n backgrundsfärg: {0} \n textfärg: {1}",this.background_color, this.text_color);
+            }
         }
 
+        public void Update_Colors()
+        {
+            Console.WriteLine("Mata in en ny textfärg: " );
+            string t_color = Console.ReadLine();
+            Console.WriteLine("Mata in en ny backgrundsfärg: ");
+            string bg_color = Console.ReadLine();
+            if (bg_color != t_color)
+            {
+                Background_color(bg_color);
+                Text_color(t_color);
+                Save_user();
+                Update_background_text();
+            }
+            else
+                Console.WriteLine("Felaktigt inmatting eller val av färger din klant försök igen om du vill att det ska ändras \n PS samma backgrundsfärg och textfärg fungerar inte  ");
+        }
+        
 
         /*  
-         WriteAllText method  if document exist its writing over everything if not it creates doc and write. 
-         
+         WriteAllText method  if document exist its writing over everything if not it creates doc and write.  
          */
         private void Save_user()
         {
             try
             {
-                
                     string save_user = string.Format("{0}\n{1}\n{2}", User_name, this.text_color, this.background_color);
                     File.WriteAllText(text_file, save_user);
-                
             }
             catch (Exception e)
             {
@@ -211,7 +264,7 @@ namespace Calculator.data
                         string line;
                         while ((line = sr.ReadLine()) != null)
                         {
-                            Console.WriteLine(line);
+                           // Console.WriteLine(line); Just får checking :)
                             if (index <= 2)
                                 user_inputs[index] = line;
 
@@ -230,14 +283,22 @@ namespace Calculator.data
                 this.user_name = user_inputs[0];
                 this.text_color = Parsing(user_inputs[1], this.text_color);//If someone stuipid changes the txt file, not using this program ^^^^^^^^
                 this.background_color = Parsing(user_inputs[2], this.background_color);
-
-                Console.WriteLine($"{User_name}   {this.text_color}   {this.background_color}");
-
-                Console.ReadKey();
-
-                Update_background_text();
+                Console.ForegroundColor = this.text_color;
+                Console.BackgroundColor = this.background_color;
+                Console.Clear();
 
             } 
+        }
+
+        public void Reset_colors()
+        {
+            this.background_color = ConsoleColor.Black;
+            this.text_color = ConsoleColor.White;
+            Console.ForegroundColor = this.text_color;
+            Console.BackgroundColor = this.background_color;
+            Console.Clear();
+            Save_user();
+            Console.WriteLine("Färgerna är uppdaterade och tillbaka till Default :)");
         }
 
     }
@@ -250,8 +311,17 @@ namespace Calculator.data
         {
 
             User ny = new User();
+            ny.Read_from_file();
 
-            ny.Format_String(Console.ReadLine());
+            Console.WriteLine("Mata in ett användarnamn: ");
+
+            ny.User_name = Console.ReadLine();
+
+            ny.Colors_Available();
+
+            ny.Update_Colors();
+
+
             Console.ReadKey();
 
             //ny.Read_from_file();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic; //List
+using Calculator.data;
 
 namespace Calculator
 {
@@ -7,7 +8,7 @@ namespace Calculator
     {
         public static float tal1, tal2;  //Räcker med static där, i Prgoram classen kul att se vad som händer med olika deklaringar. 
         static string math_operator;
-
+        static User GetUser = new User();
 
         // TryParse framför Pars TryParse returnar 0 om det misslyckas istället för olika exceptions. så gör det enklare att hantera och gå vidare med TryParse
        
@@ -90,6 +91,8 @@ namespace Calculator
 
         static bool Get_input(string read) //Testar lika olika typer av input.
         {
+            if (read == GetUser.User_name)
+                return false;
             string[] input_array = Trim_and_stuff(read); //Avsulta på en rad sök efter ordet annars trim men varför ? 
 
             if (input_array[1] != null)
@@ -103,7 +106,7 @@ namespace Calculator
             {
                 tal1 = Check_input_float(input_array[0]);
                 math_operator = Console.ReadLine(); // Avsluta med hjälp av operatorn 
-                if (math_operator == "MARCUS") 
+                if (math_operator == GetUser.User_name) 
                     return false;
                 tal2 = Check_input_float(Console.ReadLine());
                 return true;
@@ -125,23 +128,41 @@ namespace Calculator
         {
             string read;
             List<Calc> history = new List<Calc>(); //Skapar en array
-
-            Console.WriteLine("En fantatiskt miniräknare, där om du vill AVSLUTA matar in MARCUS \n Mata in ett tal:");
+            GetUser.Read_from_file();
+            Console.WriteLine("Hej {0} \n Det är är din personliga kalkylator skriv hjälp för vidare instruktioner {0}", GetUser.User_name);
 
             do
             {
+                Console.WriteLine("Do some math");
                 read = Console.ReadLine();
-
 
                 switch (read)
                 {
-                    case "MARCUS":  
-                        Console.WriteLine(" \t  Hej då \n");
+                    case "åter":
+                        GetUser.Reset_colors();
                         break;
-                    case "help":
+                    case "färg":
+                        GetUser.Colors_Available();
+                        GetUser.Update_Colors();
+                        break;
+                    case "clear":
+                        Console.Clear();
+                        break;
+                    case "anv":
+                        GetUser.User_name = Console.ReadLine();
+                        break;
+                    case "hjälp":
                         Console.WriteLine("Avsluta genom att skriva ditt användarnamn: ");
-                        Console.WriteLine("Mata in det som du vill räkna ut på en rad eller en rad i taget");
-                        Console.WriteLine("Skriv historik, för att få se calculatorns historik" );
+                        Console.WriteLine("Mata in det som du vill räkna ut på en rad eller en rad i taget det spelar ingen roll");
+                        Console.WriteLine("Kommer säga till när det blir fel xD ");
+                        Console.WriteLine("Utför enbart en matematisk operation => absolut bästa kvalite på uträkningen xD");
+
+                        Console.WriteLine("Kommandon: " );
+                        Console.WriteLine("historik <--------skriver ut historiken av uträkningarna ");
+                        Console.WriteLine("clear   <--------rensar skärmen");
+                        Console.WriteLine("färg    <--------ändra backgrund + text färg");
+                        Console.WriteLine("anv    <--------ändra användarnamn");
+                        Console.WriteLine("åter    <--------ändra tillbaka färgerna till default");
                         break;
                     case "historik":
                         History(history);
@@ -161,14 +182,15 @@ namespace Calculator
                         else
                         {
                             
-                            read = "MARCUS";
+                            read = GetUser.User_name;
                         }
                         break;
 
                 }
 
-            } while (read != "MARCUS");
+            } while (read != GetUser.User_name);
 
+            Console.WriteLine(" \t  Hej då \n");
 
             History(history);
 
