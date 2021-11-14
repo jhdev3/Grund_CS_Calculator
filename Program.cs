@@ -129,7 +129,7 @@ namespace Calculator
             string read;
             List<Calc> history = new List<Calc>(); //Skapar en array
             GetUser.Read_from_file();
-            Console.WriteLine("Hej {0} \n Det är är din personliga kalkylator skriv hjälp för vidare instruktioner {0}", GetUser.User_name);
+            Console.WriteLine("Hej {0} \n Det är är din personliga kalkylator skriv hjälp för att se alla kommandon och instruktioner {0}", GetUser.User_name);
 
             do
             {
@@ -149,10 +149,11 @@ namespace Calculator
                         Console.Clear();
                         break;
                     case "anv":
+                        Console.WriteLine("Ange ett nytt användarnamn: ");
                         GetUser.User_name = Console.ReadLine();
                         break;
                     case "hjälp":
-                        Console.WriteLine("Avsluta genom att skriva ditt användarnamn: ");
+                        Console.WriteLine("Avsluta genom att skriva ditt användarnamn: {0} ", GetUser.User_name);
                         Console.WriteLine("Mata in det som du vill räkna ut på en rad eller en rad i taget det spelar ingen roll");
                         Console.WriteLine("Kommer säga till när det blir fel xD ");
                         Console.WriteLine("Utför enbart en matematisk operation => absolut bästa kvalite på uträkningen xD");
@@ -190,7 +191,7 @@ namespace Calculator
 
             } while (read != GetUser.User_name);
 
-            Console.WriteLine(" \t  Hej då \n");
+            Console.WriteLine(" \t  Hej då {0} \n", GetUser.User_name);
 
             History(history);
 

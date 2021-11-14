@@ -173,13 +173,13 @@ namespace Calculator.data
 
         public void create_new_user()
         {
-            Console.WriteLine("Hej dags göra calculatorn personlig :), mata in ett roligt användarnamn:  ");
+            Console.WriteLine("Hejsan :) Skriv in ett användarnamn, det används till att avsluta programmet :):  ");
             User_name = Console.ReadLine();
             Console.WriteLine("Nu har du även möjligheten att ändra text och backgrunds färg :)");
             Colors_Available();
-            Console.WriteLine("Mata in en text färg från listan: ");
+            Console.WriteLine("Välj en text färg från listan: ");
             string t_color = Console.ReadLine();
-            Console.WriteLine("Mata in en backgrunds färg från listan: ");
+            Console.WriteLine("Välj en backgrunds färg från listan: ");
             string bg_color = Console.ReadLine();
 
             if (bg_color != t_color)
@@ -242,12 +242,13 @@ namespace Calculator.data
         public void Read_from_file()
         {
             
-            Console.WriteLine(File.Exists(text_file) ? "File exists." : "File does not exist."); //För en enkel check
+           // Console.WriteLine(File.Exists(text_file) ? "File exists." : "File does not exist."); //För en enkel check
 
             if (!File.Exists(text_file))
             {
                 //Create new user and file
                 create_new_user();
+                Update_background_text();
                 //Create new file and save
                 Save_user();
             }
@@ -302,54 +303,6 @@ namespace Calculator.data
         }
 
     }
-
-    class Test_user
-    {
-
-
-        static void Main(string[] args)
-        {
-
-            User ny = new User();
-            ny.Read_from_file();
-
-            Console.WriteLine("Mata in ett användarnamn: ");
-
-            ny.User_name = Console.ReadLine();
-
-            ny.Colors_Available();
-
-            ny.Update_Colors();
-
-
-            Console.ReadKey();
-
-            //ny.Read_from_file();
-
-            //ny.Update_background_text();
-
-            //Console.WriteLine("Användarnamn: " + ny.User_name);
-
-            //Console.WriteLine("Matar in nya data: ");
-            //ny.Colors_Available();
-
-            //ny.User_name = Console.ReadLine();
-            //ny.Text_color(Console.ReadLine());
-
-            //Console.ReadKey();
-
-            //ny.Text_color(Console.ReadLine());
-
-            //Console.ReadKey();
-
-            //ny.Update_background_text();
-            //Console.ReadKey();
-            //Felsök:) File.Delete(@"C:\Users\eneby\OneDrive\Bilder\TUC\Programmering Grund\Calculator\Grund_CS_Calculator\bin\Debug\netcoreapp3.1\user_config.txt");
-
-        }
-    }
-
-
 }
 //string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location); //Same directory
  
