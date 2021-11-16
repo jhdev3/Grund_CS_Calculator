@@ -79,7 +79,7 @@ namespace Calculator.data
             Bara första bokstaven görs till upper
             DarkRed etc Colors är CaseSensetive av en anledning :) 
         Går att utveckla till att genom att jämföra hela Color listan=> lowercase och sedan göra de ändringar som behövs.
-         
+         hej
          
          */
         public string String_for_ConsoleColor(string test) // en liten hjälp till använderan så en stor/liten bokstav inte orsakr irrterande fel. 
@@ -125,7 +125,7 @@ namespace Calculator.data
         }
         public void Colors_Available()
         {
-            ConsoleColor[] colors = (ConsoleColor[])ConsoleColor.GetValues(typeof(ConsoleColor)); //Hämtar alla fårger i en colors array
+            ConsoleColor[] colors = (ConsoleColor[])Enum.GetValues(typeof(ConsoleColor)); //Hämtar alla fårger i en colors array inspiration från docs microsoft :) 
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
